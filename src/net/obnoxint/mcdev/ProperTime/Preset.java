@@ -1,4 +1,4 @@
-package com.andersonhc.properTime;
+package net.obnoxint.mcdev.ProperTime;
 
 public enum Preset {
 

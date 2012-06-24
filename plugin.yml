@@ -1,4 +1,4 @@
-main: com.andersonhc.properTime.ProperTime
+main: net.obnoxint.mcdev.ProperTime.ProperTime
 name: ProperTime
 version: 2.1-omc
 

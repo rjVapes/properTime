@@ -1,13 +1,14 @@
-package com.andersonhc.properTime;
+package net.obnoxint.mcdev.ProperTime;
 
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.Callable;
 
 
+import net.obnoxint.mcdev.ProperTime.ConfigParser.Conf;
+
 import org.bukkit.World;
 
-import com.andersonhc.properTime.ConfigParser.Conf;
 
 
 public final class ProperTimeFixTime extends Thread {
