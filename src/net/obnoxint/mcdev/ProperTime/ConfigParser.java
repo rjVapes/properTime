@@ -58,8 +58,7 @@ public class ConfigParser {
         for (int i = 0; i < configs.length; i++) {
             if (configs[i].origin != Origin.SPECIFIC
                     && configs[i].origin != Origin.PRESET) {
-                plugin.logInfo("Applying default config on world "
-                        + configs[i].w.getName(), false);
+                plugin.getLogger().info("Applying default config on world " + configs[i].w.getName());
             }
             fixTimes[i] = new ProperTimeFixTime(plugin, configs[i]);
         }
@@ -79,7 +78,7 @@ public class ConfigParser {
             conf.set("propertime." + worldName + ".perma", "none");
         }
         plugin.saveConfig();
-        plugin.logInfo("New configuration file created", false);
+        plugin.getLogger().info("New configuration file created");
     }
 
     private void parseConfigFile() {
@@ -101,12 +100,12 @@ public class ConfigParser {
             for (int i = 0; i < configs.length; i++) {
                 if (configs[i].w.getName().equals(curWorld)) {
                     c = configs[i];
-                    plugin.logInfo("World set to: " + curWorld + ".", false);
+                    plugin.getLogger().info("World set to: " + curWorld + ".");
                 }
             }
 
             if (c == null) {
-                plugin.logWarn("World " + curWorld + "not found!");
+                plugin.getLogger().warning("World " + curWorld + "not found!");
                 continue;
             }
 
@@ -122,24 +121,24 @@ public class ConfigParser {
                         c.factordusk = p.getFactordusk();
                         c.factordawn = p.getFactordawn();
                         c.perma = p.getPerma();
-                        plugin.logInfo("Preset \"" + preset + "\" applyed to " + curWorld, false);
+                        plugin.getLogger().info("Preset \"" + preset + "\" applyed to " + curWorld);
                         c.origin = Origin.PRESET;
                     }
                 }
                 if (!found) {
-                    plugin.logWarn("Preset \"" + preset + "\" not found. Applying default.");
+                    plugin.getLogger().warning("Preset \"" + preset + "\" not found. Applying default.");
                 }
 
             } else if (conf.contains("propertime." + curWorld + ".followworld")) {
                 String followWorld = conf.getString("propertime." + curWorld + ".followworld");
                 World worldFollowed = plugin.getServer().getWorld(followWorld);
                 if (worldFollowed == null) {
-                    plugin.logWarn("World " + followWorld + "not found");
+                    plugin.getLogger().warning("World " + followWorld + "not found");
                 }
                 c.followWorld = worldFollowed;
                 c.origin = Origin.FOLLOW;
                 c.followWorldDelay = conf.getDouble("propertime." + curWorld + ".followworlddelay", 0.0);
-                plugin.logInfo("World " + curWorld + " will follow " + followWorld + "'s time with a delay of " + c.followWorldDelay, false);
+                plugin.getLogger().info("World " + curWorld + " will follow " + followWorld + "'s time with a delay of " + c.followWorldDelay);
             } else {
                 c.origin = Origin.SPECIFIC;
                 c.factorday = conf.getDouble("propertime." + curWorld + ".timespeedday", 1.0);
@@ -157,11 +156,11 @@ public class ConfigParser {
                 } else {
                     c.perma = Integer.parseInt(perma);
                 }
-                plugin.logInfo("World: " + curWorld + " - SpeedDay: " + c.factorday, false);
-                plugin.logInfo("World: " + curWorld + " - SpeedNight: " + c.factornight, false);
-                plugin.logInfo("World: " + curWorld + " - SpeedDusk: " + c.factordusk, false);
-                plugin.logInfo("World: " + curWorld + " - SpeedDawn: " + c.factordawn, false);
-                plugin.logInfo("World: " + curWorld + " - Perma: " + c.perma, false);
+                plugin.getLogger().info("World: " + curWorld + " - SpeedDay: " + c.factorday);
+                plugin.getLogger().info("World: " + curWorld + " - SpeedNight: " + c.factornight);
+                plugin.getLogger().info("World: " + curWorld + " - SpeedDusk: " + c.factordusk);
+                plugin.getLogger().info("World: " + curWorld + " - SpeedDawn: " + c.factordawn);
+                plugin.getLogger().info("World: " + curWorld + " - Perma: " + c.perma);
             }
 
         }
@@ -170,8 +169,7 @@ public class ConfigParser {
 
             if (configs[i].origin != Origin.SPECIFIC
                     && configs[i].origin != Origin.PRESET) {
-                plugin.logInfo("Applying default config on world "
-                        + configs[i].w.getName(), false);
+                plugin.getLogger().info("Applying default config on world " + configs[i].w.getName());
                 configs[i].perma = -1;
                 configs[i].factorday = 1;
                 configs[i].factornight = 1;

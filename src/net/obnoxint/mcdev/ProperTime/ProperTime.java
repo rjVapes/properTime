@@ -1,15 +1,13 @@
 package net.obnoxint.mcdev.ProperTime;
 
-import java.util.logging.Logger;
-
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class ProperTime extends JavaPlugin {
 
+    private static final String LOG_DEBUG_PREFIX = "DEBUG: ";
+
     private int dayLength = 20 * 60; // 20 minutes
-    private boolean debug = false;
     private ProperTimeFixTime[] fixTimes;
-    private final Logger log = Logger.getLogger("Minecraft");
     private int mcDayLength = 24000;
     private int stepSize = 5; // seconds
     private int steps = dayLength / stepSize;
@@ -27,22 +25,16 @@ public final class ProperTime extends JavaPlugin {
         return this.stepSize;
     }
 
-    public boolean isDebug() {
-        return this.debug;
-    }
-
     @Override
     public void onDisable() {
         try {
             for (int i = 0; i < fixTimes.length; i++) {
                 fixTimes[i].t.cancel();
                 fixTimes[i].join();
-                logInfo("Thread " + i + " successfully joined.", false);
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        logInfo("Signing off.", false);
     }
 
     @Override
@@ -51,24 +43,10 @@ public final class ProperTime extends JavaPlugin {
         for (int i = 0; i < fixTimes.length; i++) {
             fixTimes[i].start();
         }
-        logInfo("Initialized.", false);
     }
 
-    public void setDebug(Boolean debug) {
-        this.debug = debug;
-    }
-
-    protected void logInfo(String text, Boolean debugMessage) {
-        if (debugMessage) {
-            if (!isDebug()) {
-                return;
-            }
-        }
-        log.info("[" + getDescription().getName() + " v" + getDescription().getVersion() + "] " + text);
-    }
-
-    protected void logWarn(String text) {
-        log.warning("[" + getDescription().getName() + " v" + getDescription().getVersion() + "] " + text);
+    void logDebug(String msg) {
+        getLogger().info(LOG_DEBUG_PREFIX + msg);
     }
 
 }

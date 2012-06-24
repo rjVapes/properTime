@@ -4,12 +4,9 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.Callable;
 
-
 import net.obnoxint.mcdev.ProperTime.ConfigParser.Conf;
 
 import org.bukkit.World;
-
-
 
 public final class ProperTimeFixTime extends Thread {
 
@@ -31,10 +28,10 @@ public final class ProperTimeFixTime extends Thread {
                 if (ctime < lasttime + 3 * plugin.getDefaultStep() && ctime > lasttime - plugin.getDefaultStep()) {
                     long ntime = lasttime + getStep(lasttime);
                     world.setTime(ntime);
-                    plugin.logInfo("Synchronized time on world \"" + world.getName() + "\", diff was " + (ntime - ctime) + ".", true);
+                    plugin.logDebug("Synchronized time on world \"" + world.getName() + "\", diff was " + (ntime - ctime) + ".");
                     lasttime = ntime;
                 } else { // someone used settime
-                    plugin.logInfo("(debug) Apparently someone used setTime, not synchronizing.", true);
+                    plugin.logDebug("Apparently someone used setTime, not synchronizing.");
                     lasttime = ctime;
                 }
             }
