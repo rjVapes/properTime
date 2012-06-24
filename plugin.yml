@@ -1,4 +1,11 @@
-name: ProperTime
 main: com.andersonhc.properTime.ProperTime
-version: 2.1
+name: ProperTime
+version: 2.1-omc
+
+author: obnoxint
+email: mail@obnoxint.net
+authors: [obnoxint, andersonhc]
+
+
+
 softdepend: [MultiVerse, multiverse-core]
