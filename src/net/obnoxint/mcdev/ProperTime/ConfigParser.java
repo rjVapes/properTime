@@ -97,8 +97,10 @@ public class ConfigParser {
             // System.out.println("now: " + curWorld);
 
             Conf c = null;
-            for (int i = 0; i < configs.length; i++) {
-                if (configs[i].w.getName().equals(curWorld)) {
+            for (int i = 0; i < configs.length; i++) 
+            {
+                if (configs[i].w.getName().equalsIgnoreCase(curWorld)) 
+                {
                     c = configs[i];
                     plugin.getLogger().info("World set to: " + curWorld + ".");
                 }
