@@ -26,12 +26,12 @@ public final class ProperTimeFixTime extends Thread {
                 world.setTime(newTime);
             } else {
                 if (ctime < lasttime + 3 * plugin.getDefaultStep() && ctime > lasttime - plugin.getDefaultStep()) {
-                    long ntime = lasttime + getStep(lasttime);
+                    long ntime = lasttime + getStep(lasttime) / 100;
                     world.setTime(ntime);
-                    plugin.logDebug("Synchronized time on world \"" + world.getName() + "\", diff was " + (ntime - ctime) + ".");
+                    //plugin.logDebug("Synchronized time on world \"" + world.getName() + "\", diff was " + (ntime - ctime) + ".");
                     lasttime = ntime;
                 } else { // someone used settime
-                    plugin.logDebug("Apparently someone used setTime, not synchronizing.");
+                    //plugin.logDebug("Apparently someone used setTime, not synchronizing.");
                     lasttime = ctime;
                 }
             }
@@ -79,7 +79,7 @@ public final class ProperTimeFixTime extends Thread {
     @Override
     public void run() {
         t = new Timer();
-        t.schedule(new ttask(), plugin.getStepSize() * 1000, plugin.getStepSize() * 1000);
+        t.schedule(new ttask(), plugin.getStepSize() * 10, plugin.getStepSize() * 10);
     }
 
     private int getStep(long a) {
