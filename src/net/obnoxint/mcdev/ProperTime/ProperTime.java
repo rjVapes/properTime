@@ -6,11 +6,10 @@ public final class ProperTime extends JavaPlugin {
 
     private static final String LOG_DEBUG_PREFIX = "DEBUG: ";
 
-    private int dayLength = 20 * 60; // 20 minutes
     private ProperTimeFixTime[] fixTimes;
     private int mcDayLength = 24000;
-    private int stepSize = 5; // seconds
-    private int steps = dayLength / stepSize;
+    private int stepSize = 1; // How often to update in ticks, there are 20 ticks in a second
+    private int steps = mcDayLength / stepSize;
     private int defaultStep = getMcDayLength() / steps;
 
     public int getDefaultStep() {

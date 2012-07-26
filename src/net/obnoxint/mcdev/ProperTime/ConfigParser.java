@@ -36,7 +36,8 @@ public class ConfigParser {
 
     private final ProperTime plugin;
 
-    public ConfigParser(ProperTime plugin) {
+    public ConfigParser(ProperTime plugin) 
+    {
         this.plugin = plugin;
 
         configs = new Conf[plugin.getServer().getWorlds().size()];

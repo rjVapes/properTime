@@ -24,13 +24,25 @@ public final class ProperTimeFixTime extends Thread {
                     newTime += plugin.getMcDayLength();
                 }
                 world.setTime(newTime);
-            } else {
-                if (ctime < lasttime + 3 * plugin.getDefaultStep() && ctime > lasttime - plugin.getDefaultStep()) {
-                    long ntime = lasttime + getStep(lasttime) / 100;
-                    world.setTime(ntime);
-                    //plugin.logDebug("Synchronized time on world \"" + world.getName() + "\", diff was " + (ntime - ctime) + ".");
-                    lasttime = ntime;
-                } else { // someone used settime
+            } 
+            else 
+            {
+                if (ctime < lasttime + 3 * plugin.getDefaultStep() && ctime > lasttime - plugin.getDefaultStep()) 
+                {
+                    long ntime = lasttime + getStep(lasttime);
+                    if(ctime < ntime)
+                    {
+	                    world.setTime(ntime);
+	                    //plugin.logDebug("Synchronized time on world \"" + world.getName() + "\", diff was " + (ntime - ctime) + ".");
+	                    lasttime = ntime;
+                    }
+                    else
+                    {
+                    	lasttime = ctime;
+                    }
+                } 
+                else 
+                { // someone used settime
                     //plugin.logDebug("Apparently someone used setTime, not synchronizing.");
                     lasttime = ctime;
                 }
@@ -79,27 +91,38 @@ public final class ProperTimeFixTime extends Thread {
     @Override
     public void run() {
         t = new Timer();
-        t.schedule(new ttask(), plugin.getStepSize() * 10, plugin.getStepSize() * 10);
+        t.schedule(new ttask(), plugin.getStepSize() * 50, plugin.getStepSize() * 50);
     }
 
     private int getStep(long a) {
-        if ((a % 24000) < 12000) { // day
-            if ((a + plugin.getDefaultStep()) % 24000 > 12000) {
+        if ((a % 24000) < 12000) 
+        { // day
+            if ((a + plugin.getDefaultStep()) % 24000 > 12000) 
+            {
                 return desiredStepDusk;
             }
             return desiredStepDay;
-        } else if ((a % 24000) < 13800) { // sundown
-            if ((a + plugin.getDefaultStep()) % 24000 > 13800) {
+        } 
+        else if ((a % 24000) < 13800) 
+        { // sundown
+            if ((a + plugin.getDefaultStep()) % 24000 > 13800) 
+            {
                 return desiredStepNight;
             }
             return desiredStepDusk;
-        } else if ((a % 24000) < 22200) { // night
-            if ((a + plugin.getDefaultStep()) % 24000 > 22200) {
+        } 
+        else if ((a % 24000) < 22200) 
+        { // night
+            if ((a + plugin.getDefaultStep()) % 24000 > 22200) 
+            {
                 return desiredStepDawn;
             }
             return desiredStepNight;
-        } else { // sunrise
-            if ((a + plugin.getDefaultStep()) % 24000 < 12000) {
+        } 
+        else 
+        { // sunrise
+            if ((a + plugin.getDefaultStep()) % 24000 < 12000) 
+            {
                 return desiredStepDay;
             }
             return desiredStepDawn;
